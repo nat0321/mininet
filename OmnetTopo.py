@@ -16,7 +16,7 @@ import sys
 sys.path.append('/home/mininet/.local/lib/python3.8/site-packages')
 
 #import pandas as pd
-from nfstream import NFStreamer
+#from nfstream import NFStreamer
 #from collections import defaultdict
 
 #from scapy.base_classes import Net
