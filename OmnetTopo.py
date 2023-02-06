@@ -15,7 +15,7 @@ from mininet.log import setLogLevel, info
 import sys
 sys.path.append('/home/mininet/.local/lib/python3.8/site-packages')
 
-import pandas as pd
+#import pandas as pd
 from nfstream import NFStreamer
 from collections import defaultdict
 
