@@ -26,13 +26,13 @@ def emptyNet():
     info( '*** Starting network\n')
     net.start()
 
-    info( 'Running Commands')
+    info( 'Running Commands\n')
     net.iperf()
     
     info( '*** Running CLI\n' )
     CLI( net )
 
-    info( '*** Stopping network' )
+    info( '*** Stopping network\n' )
     net.stop()
 
 
