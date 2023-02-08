@@ -14,5 +14,5 @@ sudo docker exec -it omnet bash
 <br /><br />
 
 ## Working Onos in Docker
-mn --controller remote, ip=LOCAL_IP_OF_HOST --custom OmnetTopo.py --topo=OmnetTopo
+mn --controller remote,ip=LOCAL_IP_OF_HOST --custom OmnetTopo.py --topo=OmnetTopo
 
