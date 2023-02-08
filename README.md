@@ -10,3 +10,5 @@ sudo docker run -it —rm --privileged -e DISPLAY -v /tmp/.X11-unix:/tmp/.x11-un
 
 mn --controller remote, ip=172.16.234.29,port=6653 --topo torus, 3,3 --switch ovs 
 sudo docker exec -it omnet bash
+
+https://repo1.maven.org/maven2/org/onosproject/onos-releases/2.7.0/onos-2.7.0.tar.gz
