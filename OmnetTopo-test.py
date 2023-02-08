@@ -10,6 +10,7 @@ from mininet.node import OVSKernelSwitch, UserSwitch, Switch
 from mininet.node import OVSController, OVSSwitch, Controller
 from mininet.node import RemoteController
 from mininet.log import setLogLevel, info
+from mininet.cli import CLI
 
 #changes
 import sys
@@ -69,6 +70,6 @@ class MyTopo(Topo):
         self.addLink(switch1, switch2)
 
         info('***Running Comamands***')
-        CLI(iperf)
+        CLI( iperf )
 
 topos = { 'OmnetTopo': ( lambda: MyTopo() ) }
