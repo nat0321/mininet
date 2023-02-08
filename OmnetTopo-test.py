@@ -69,6 +69,6 @@ class MyTopo(Topo):
         self.addLink(switch1, switch2)
 
         info('***Running Comamands***')
-        CLI( iperf )
+        CLI(iperf)
 
 topos = { 'OmnetTopo': ( lambda: MyTopo() ) }
