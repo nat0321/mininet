@@ -14,8 +14,16 @@ sudo docker exec -it omnet bash
 <br /><br />
 
 ## Starting costom topology in ONOS inside of Docker container
-Find local ip of host:
+Find local ip of host or ONOS controler:
+<br />
+Finding IP of local host:
 <br />
 ip a
 <br /><br />
+Installing custom topology inside of container:
+<br />
+wget --no-check-certificate https://raw.githubusercontent.com/nat0321/mininet/main/OmnetTopo.py
+<br /><br />
+Starting Mininet with custom topology:
+<br />
 mn --controller remote,ip=LOCAL_IP_OF_HOST --custom OmnetTopo.py --topo=OmnetTopo
