@@ -68,9 +68,7 @@ class MyTopo(Topo):
         self.addLink(host14, switch2)
         self.addLink(switch1, switch2)
 
-        host1.cmd("iperf -s &")
-        result = host2.cmd("iperf -c h1")
-
-        print(result)
+        info('***Running Comamands***')
+        CLI( iperf )
 
 topos = { 'OmnetTopo': ( lambda: MyTopo() ) }
