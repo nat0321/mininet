@@ -24,7 +24,7 @@ sys.path.append('/home/mininet/.local/lib/python3.8/site-packages')
 
 import random
 
-c1= RemoteController(name='c0', controller='RemoteController', ip='127.0.0.1', port=6653)
+c1= RemoteController(name='c0', controller='RemoteController', ip='192.168.2.248', port=6653)
 	
 
 class MyTopo(Topo):
