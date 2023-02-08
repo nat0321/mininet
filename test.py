@@ -26,6 +26,9 @@ def emptyNet():
     info( '*** Starting network\n')
     net.start()
 
+    info( 'Running Commands')
+    net.iperf()
+    
     info( '*** Running CLI\n' )
     CLI( net )
 
