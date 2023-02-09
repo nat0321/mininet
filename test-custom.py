@@ -10,11 +10,10 @@ def emptyNet():
 
     "Create an empty network and add nodes to it."
 
-    net = Mininet( controller=Controller, waitConnected=True )
+    net = Mininet( controller=RemoteController, waitConnected=True )
 
     info( '*** Adding controller\n' )
-    c1 = RemoteController( 'c1', ip='172.16.235.233', port=6653 )
-    #net.addController( 'c0' )
+    c1= net.addController('c0', controller=RemoteController, ip='172.16.235.233', port=6653)
 
     info( '*** Adding hosts\n' )
     host1 = net.addHost('PV1', cls=Host, ip='10.0.0.2')
@@ -56,7 +55,8 @@ def emptyNet():
     info( '*** Starting network\n')
     net.start()
 
-    info( '*** Running CLI\n' )
+    info( '*** Running\n' )
+    net.pingAll()
     host1.cmdPrint('iperf -s &')
     host2.cmdPrint('iperf -c 10.0.0.2')
     net.iperf()
