@@ -4,6 +4,7 @@ from mininet.cli import CLI
 from mininet.log import setLogLevel, info
 from mininet.node import OVSKernelSwitch
 from mininet.node import Host
+from mininet.node import RemoteController
 
 def emptyNet():
 
@@ -12,7 +13,8 @@ def emptyNet():
     net = Mininet( controller=Controller, waitConnected=True )
 
     info( '*** Adding controller\n' )
-    net.addController( 'c0' )
+    c1 = RemoteController( 'c1', ip='172.16.235.233', port=6653 )
+    #net.addController( 'c0' )
 
     info( '*** Adding hosts\n' )
     host1 = net.addHost('PV1', cls=Host, ip='10.0.0.2')
