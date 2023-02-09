@@ -2,6 +2,8 @@ from mininet.net import Mininet
 from mininet.node import Controller
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
+from mininet.node import OVSKernelSwitch
+from mininet.node import Host
 
 def emptyNet():
 
@@ -53,8 +55,8 @@ def emptyNet():
     net.start()
 
     info( '*** Running CLI\n' )
-    h1.cmdPrint('iperf -s &')
-    h2.cmdPrint('iperf -c 10.0.0.1')
+    host1.cmdPrint('iperf -s &')
+    host2.cmdPrint('iperf -c 10.0.0.2')
     net.iperf()
 
     #info( '*** Stopping network\n' )
