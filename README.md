@@ -27,3 +27,6 @@ wget --no-check-certificate https://raw.githubusercontent.com/nat0321/mininet/ma
 Starting Mininet with custom topology:
 <br />
 mn --controller remote,ip=LOCAL_IP_OF_HOST --custom OmnetTopo.py --topo=OmnetTopo
+## Mininet Python API guide
+<br />
+http://mininet.org/api/classmininet_1_1net_1_1Mininet.html
