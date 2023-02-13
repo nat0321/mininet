@@ -22,6 +22,7 @@ def emptynet():
     host5 = net.addhost('host5', cls=Host, ip="10.0.0.10")
     host6 = net.addhost('host6', cls=Host, ip="10.0.0.11")
     host7 = net.addhost('host7', cls=Host, ip="10.0.0.12")
+    host8 = net.addhost('host8', cls=Host, ip="10.0.0.12")
 
     # Adding Switches
     switch1 = net.addSwitch('s1', cls=OVSKernelSwitch, ip='10.0.0.2')
@@ -37,6 +38,9 @@ def emptynet():
     net.addLink(switch3, host4)
     net.addLink(switch3, host5)
     net.addLink(switch3, host6)
+    net.addLink(switch1, host7)
+    net.addLink(switch1, host8)
+    
 
     # Starting network
     net.start()
@@ -44,7 +48,12 @@ def emptynet():
     # Ping all
     net.pingAll()
 
+    # Enter ClI
+    CLI(net)
+
     # Stopping Network
     net.stop()
 
 # Main Function
+setLogLevel( 'info' )
+emptynet()
