@@ -16,13 +16,13 @@ def emptynet():
 
     # Adding Hosts
     host1 = net.addHost('host1', cls=Host, ip='10.0.0.6')
-    host2 = net.addhost('host2', cls=Host, ip="10.0.0.7")
-    host3 = net.addhost('host3', cls=Host, ip="10.0.0.8")
-    host4 = net.addhost('host4', cls=Host, ip="10.0.0.9")
-    host5 = net.addhost('host5', cls=Host, ip="10.0.0.10")
-    host6 = net.addhost('host6', cls=Host, ip="10.0.0.11")
-    host7 = net.addhost('host7', cls=Host, ip="10.0.0.12")
-    host8 = net.addhost('host8', cls=Host, ip="10.0.0.12")
+    host2 = net.addHost('host2', cls=Host, ip="10.0.0.7")
+    host3 = net.addHost('host3', cls=Host, ip="10.0.0.8")
+    host4 = net.addHost('host4', cls=Host, ip="10.0.0.9")
+    host5 = net.addHost('host5', cls=Host, ip="10.0.0.10")
+    host6 = net.addHost('host6', cls=Host, ip="10.0.0.11")
+    host7 = net.addHost('host7', cls=Host, ip="10.0.0.12")
+    host8 = net.addHost('host8', cls=Host, ip="10.0.0.12")
 
     # Adding Switches
     switch1 = net.addSwitch('s1', cls=OVSKernelSwitch, ip='10.0.0.2')
