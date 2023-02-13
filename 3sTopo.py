@@ -48,6 +48,9 @@ def emptynet():
     # Ping all
     net.pingAll()
 
+    # iperf
+    net.iperf()
+
     # Enter ClI
     CLI(net)
 
