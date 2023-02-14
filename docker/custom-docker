@@ -1,7 +1,0 @@
-FROM mininet/mininet
-
-# Copy your custom topology code into the Docker image
-COPY OmnetTopo.py /root/
-
-# Set the default command to run when the Docker container starts
-CMD ["python", "/root/custom_topo.py"]
