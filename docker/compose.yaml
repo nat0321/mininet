@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  atomix-1:
+    image: atomix/atomix:3.1.5
+
+  atomix-2:
+    image: atomix/atomix:3.1.5
+
+  atomix-3:
+    image: atomix/atomix:3.1.5
+
+  onos1:
+    image: onosproject/onos:2.2.2
+
+  onos2:
+    image: onosproject/onos:2.2.2
+  
+  onos3:
+    image: onosproject/onos:2.2.2
