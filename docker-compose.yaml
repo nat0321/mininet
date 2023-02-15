@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    mininet-in-a-container:
+        privileged: true
+        environment:
+            - DISPLAY
+        volumes:
+            - '/tmp/.X11-unix:/tmp/.x11-unix'
+            - '/lib/modules:/lib/modules'
+        container_name: omnet
+        image: pmanzoni/mininet-in-a-container
+        command: mn --controller remote,ip=172.16.235.141,port=6653 --controller remote,ip=172.16.235.141,port=6654 --controller remote,ip=172.16.235.141,port=6655 --topo linear,3
