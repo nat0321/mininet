@@ -1,5 +1,17 @@
 version: '3'
 services:
+  mininet-in-a-container:
+    privileged: true
+    tty: true
+    build:
+      context: .
+    environment:
+      - DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.x11-unix
+      - /lib/modules:/lib/modules
+    container_name: mininet
+    image: pmanzoni/mininet-in-a-container
   atomix1:
     container_name: atomix-1
     image: atomix/atomix:3.1.5
@@ -7,7 +19,7 @@ services:
     ports:
       - 5679
     networks:
-      app_subnet:
+      network:
         ipv4_address: 172.16.1.2
     hostname: atomix-1
     volumes:
@@ -19,7 +31,7 @@ services:
     ports:
       - 5679
     networks:
-      app_subnet:
+      network:
         ipv4_address: 172.16.1.3
     hostname: atomix-2
     volumes:
@@ -31,7 +43,7 @@ services:
     ports:
       - 5679
     networks:
-      app_subnet:
+      network:
         ipv4_address: 172.16.1.4
     hostname: atomix-3
     volumes:
@@ -45,9 +57,11 @@ services:
       - 8101:8101
       - 6653:6653
     networks:
-      app_subnet:
+      network:
         ipv4_address: 172.16.1.5
     hostname: onos1
+    environment:
+      - ONOS_APPS=fwd,openflow
     volumes:
       - /home/nicholo/Desktop/atomix-cluster/cluster1.json:/root/onos/config/cluster.json
   onos2:
@@ -59,7 +73,7 @@ services:
       - 8102:8101
       - 6654:6653
     networks:
-      app_subnet:
+      network:
         ipv4_address: 172.16.1.6
     hostname: onos2
     volumes:
@@ -73,11 +87,14 @@ services:
       - 8103:8101
       - 6655:6653
     networks:
-      app_subnet:
+      network:
         ipv4_address: 172.16.1.7
     hostname: onos3
     volumes:
       - /home/nicholo/Desktop/atomix-cluster/cluster3.json:/root/onos/config/cluster.json
 networks:
-  app_subnet:
-    external: true
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/16
