@@ -1,47 +1,50 @@
 version: '3'
 services:
+  mininet-in-a-container:
+    privileged: true
+#    environment:
+#      - DISPLAY
+    volumes:
+      - '/tmp/.X11-unix:/tmp/.x11-unix'
+      - '/lib/modules:/lib/modules'
+    container_name: mininet
+    image: pmanzoni/mininet-in-a-container
   atomix1:
-    container_name: atomix1
+    container_name: atomix-1
     image: atomix/atomix:3.1.5
     restart: always
     ports:
       - 5679
     networks:
-      onos:
-        ipv4_address: 172.17.0.2
-    hostname: atomix1
-    command: ["--config","/etc/atomix/conf/atomix.conf","--ignore-resources","--data-dir","/var/lib/atomix/data"]
+      network:
+        ipv4_address: 172.16.1.2
+    hostname: atomix-1
     volumes:
-      - atomix-1.conf:/opt/atomix/conf/atomix.conf
-      - /var/lib/atomix/data
+      - /home/nicholo/Desktop/atomix-cluster/atomix1.conf:/opt/atomix/conf/atomix.
   atomix2:
-    container_name: atomix2
+    container_name: atomix-2
     image: atomix/atomix:3.1.5
     restart: always
     ports:
       - 5679
     networks:
-      onos:
-        ipv4_address: 172.17.0.3
-    hostname: atomix2
-    command: ["--config","/etc/atomix/conf/atomix.conf","--ignore-resources","--data-dir","/var/lib/atomix/data"]
+      network:
+        ipv4_address: 172.16.1.3
+    hostname: atomix-2
     volumes:
-      - atomix-2.conf:/opt/atomix/conf/atomix.conf
-      - /var/lib/atomix/data
+      - /home/nicholo/Desktop/atomix-cluster/atomix2.conf:/opt/atomix/conf/atomix.conf
   atomix3:
-    container_name: atomix3
+    container_name: atomix-3
     image: atomix/atomix:3.1.5
     restart: always
     ports:
       - 5679
     networks:
-      onos:
-        ipv4_address: 172.17.0.4
-    hostname: atomix3
-    command: ["--config","/etc/atomix/conf/atomix.conf","--ignore-resources","--data-dir","/var/lib/atomix/data"]
+      network:
+        ipv4_address: 172.16.1.4
+    hostname: atomix-3
     volumes:
-      - atomix-3.conf:/opt/atomix/conf/atomix.conf
-      - /var/lib/atomix/data
+      - /home/nicholo/Desktop/atomix-cluster/atomix3.conf:/opt/atomix/conf/atomix.conf
   onos1:
     container_name: onos1
     image: onosproject/onos:2.2.0
@@ -51,11 +54,11 @@ services:
       - 8101:8101
       - 6653:6653
     networks:
-      onos:
-        ipv4_address: 172.17.0.5
+      network:
+        ipv4_address: 172.16.1.5
     hostname: onos1
     volumes:
-      - cluster1.json:/root/onos/config/cluster.json
+      - /home/nicholo/Desktop/atomix-cluster/cluster1.json:/root/onos/config/cluster.json
   onos2:
     container_name: onos2
     image: onosproject/onos:2.2.0
@@ -65,11 +68,11 @@ services:
       - 8102:8101
       - 6654:6653
     networks:
-      onos:
-        ipv4_address: 172.17.0.6
+      network:
+        ipv4_address: 172.16.1.6
     hostname: onos2
     volumes:
-      - cluster2.json:/root/onos/config/cluster.json
+      - /home/nicholo/Desktop/atomix-cluster/cluster2.json:/root/onos/config/cluster.json
   onos3:
     container_name: onos3
     image: onosproject/onos:2.2.0
@@ -79,12 +82,18 @@ services:
       - 8103:8101
       - 6655:6653
     networks:
-      onos:
-        ipv4_address: 172.17.0.7
+      network:
+        ipv4_address: 172.16.1.7
     hostname: onos3
     volumes:
-      - cluster3.json:/root/onos/config/cluster.json
+      - /home/nicholo/Desktop/atomix-cluster/cluster3.json:/root/onos/config/cluster.json
 #networks:
-#  onos:
+#  app_subnet:
 #    external: true
-
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/16
+          gateway: 172.16.0.1
