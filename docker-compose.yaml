@@ -2,11 +2,14 @@ version: '3'
 services:
   mininet-in-a-container:
     privileged: true
-#    environment:
-#      - DISPLAY
+    tty: true
+    build:
+      context: .
+    environment:
+      - DISPLAY
     volumes:
-      - '/tmp/.X11-unix:/tmp/.x11-unix'
-      - '/lib/modules:/lib/modules'
+      - /tmp/.X11-unix:/tmp/.x11-unix
+      - /lib/modules:/lib/modules
     container_name: mininet
     image: pmanzoni/mininet-in-a-container
   atomix1:
