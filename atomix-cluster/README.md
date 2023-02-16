@@ -8,6 +8,15 @@ Portainer for easy GUI managment of Docker conatiners: <br />
 Portainer Web Interface: `https://IP:9443`
 
 <br /><br />
+To download tarball of folder:
+<br />
+`curl -L https://github.com/nat0321/mininet/raw/main/atomix-cluster/atomix-cluster.tgz`
+<br />
+Extract the folder:
+<br />
+`tar -xvf atomix-cluster.tgz`
+
+<br /><br />
 Create the cluster with: `sudo docker-compose up -d`
 <br /><br />
 
