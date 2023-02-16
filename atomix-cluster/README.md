@@ -9,14 +9,22 @@ This compose file also automaticlly enables OpenFlow in the ONOS cluster to allo
 Portainer Web Interface: `https://IP:9443`
 
 <br /><br />
-To download tarball of folder:
+**Downloading & Installation**
 <br />
-`wget https://github.com/nat0321/mininet/raw/main/atomix-cluster/atomix-cluster.tgz`
+Start at your home directory: `cd ~`
 <br />
-Extract the folder: `tar xvfz atomix-cluster.tgz`
-<br /><br />
+Download tarball: `wget https://github.com/nat0321/mininet/raw/main/atomix-cluster/atomix-cluster.tgz`
+<br />
+Extract tarball: `tar xvfz atomix-cluster.tgz`
+<br />
+Enter extracted folder: `cd atomix-cluster`
+<br />
 Create the cluster with: `sudo docker-compose up -d`
 <br />
+Confirm the containers are running with `Portainer web GUI` or `sudo docker ps`
+<br />
+7 Containers should be created by the compose file
+<br /><br />
 The controllers can be accessed two ways through their Docker local IP or the hosts public IP
 <br /><br />
 
@@ -27,7 +35,7 @@ Controller 1: `172.16.1.5`
 Controller 2: `172.16.1.6`
 <br />
 Controller 3: `172.16.1.7`
-<br />
+<br /><br />
 Ports:
 <br />
 GUI: `8181`
@@ -71,6 +79,7 @@ Command: `ssh -p PORT karaf@IP`
 Example: `ssh -p 8101 karaf@192.168.5.4`
 <br />
 Password: `karaf`
+<br />
 
 **To acess the Mininet container created in the compose file:**
 <br />
