@@ -50,8 +50,7 @@ To acess the Mininet container created in the compose file:
 `sudo docker exec -it mininet bash`
 <br />
 Once inside the continer run your Mininet command.
-<br /><br />
-
+<br />
 Mininet command cluster example:
 <br />
 `mn --controller remote,ip=IP,port=6653 --controller remote,ip=IP,port=6654 --controller remote,ip=IP,port=6655 --topo tree,3`
