@@ -36,7 +36,7 @@ Controller 2: `8102`
 Controller 3: `8103`
 <br /><br />
 
-To connect Mininet to the three controllers you will need to use three ports:
+To connect Mininet to the three controllers you will need to use these OpenFlow ports:
 <br />
 Controller 1: `6653`
 <br />
