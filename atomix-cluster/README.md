@@ -1,1 +1,1 @@
-Creation of a atomix cluster inside of a Docker Compose file
+Automatic atomix cluster using a docker compose file
