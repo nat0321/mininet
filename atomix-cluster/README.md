@@ -1,4 +1,4 @@
-## Automatic atomix cluster using a docker compose file
+## Automatic ONOS Atomix cluster using a docker compose file
 
 Portainer for easy GUI managment of Docker conatiners: <br />
 `docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest`
