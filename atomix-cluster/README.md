@@ -1,4 +1,4 @@
-## Automatic ONOS Atomix cluster using a docker compose file
+## Automatic ONOS cluster using a Docker compose file
 This compose file also automaticlly enables OpenFlow in the ONOS cluster to allow connection to Mininet
 <br /><br />
 
