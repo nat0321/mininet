@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  consul-server-1:
+    image: consul
+    command: consul agent -server -bootstrap-expect=3 -node=server-1 -bind=0.0.0.0
+    ports:
+      - "8500:8500"
+    networks:
+      - consul-net
+
+  consul-server-2:
+    image: consul
+    command: consul agent -server -node=server-2 -bind=0.0.0.0 -join=consul-server-1
+    networks:
+      - consul-net
+
+  consul-server-3:
+    image: consul
+    command: consul agent -server -node=server-3 -bind=0.0.0.0 -join=consul-server-1
+    networks:
+      - consul-net
+
+networks:
+  consul-net:
