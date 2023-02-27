@@ -1,0 +1,74 @@
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      protocol: TCP
+      address: 0.0.0.0
+      port_value: 9901
+
+static_resources:
+  clusters:
+    - name: tcp_service_cluster
+      connect_timeout: 0.25s
+      type: STATIC
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: tcp_service_cluster
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: 175.24.1.5
+                      port_value: 6653
+      transport_socket:
+        name: envoy.transport_sockets.raw_buffer
+  listeners:
+    - name: tcp_listener
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 6659
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.tcp_proxy
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+                cluster: tcp_service_cluster
+                stat_prefix: tcp_service_cluster
+      tcp_keepalive:
+        keepalive_probes: 3
+        keepalive_time: 30s
+
+dynamic_resources:
+  cds_config:
+    api_config_source:
+      api_type: GRPC
+      grpc_services:
+        - envoy_grpc:
+            cluster_name: consul_cluster
+  ads_config:
+    api_type: GRPC
+    grpc_services:
+      - envoy_grpc:
+          cluster_name: xds_cluster
+  node:
+    id: "node1"
+    metadata:
+      envoy:
+        version: "1.18.3"
+  cluster_manager:
+    clusters:
+      - name: consul_cluster
+        connect_timeout: 5s
+        type: STRICT_DNS
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: consul_cluster
+          endpoints:
+            - lb_endpoints:
+                - endpoint:
+                    address:
+                      socket_address:
+                        address: 175.24.1.14
+                        port_value: 8500
