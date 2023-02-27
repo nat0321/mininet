@@ -30,3 +30,6 @@ mn --controller remote,ip=LOCAL_IP_OF_HOST --custom OmnetTopo.py --topo=OmnetTop
 ## Mininet Python API guide
 <br />
 http://mininet.org/api/classmininet_1_1net_1_1Mininet.html
+
+
+ovs−vsctl − − set Bridge s1 ipfix=@i −− −−id=@i create IPFIX targets=\”10.10.10.10:2055\” obs_domain_id=123 obs_point_id=456
