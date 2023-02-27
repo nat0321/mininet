@@ -139,6 +139,30 @@ services:
       network:
         ipv4_address: 175.24.1.13
     hostname: envoyonos3
+  
+  goflow2:
+    container_name: goflow2
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka
+    ports:
+      - 8080:8080
+      - 6343:6343/udp
+      - 2055:2055/udp
+    restart: always
+    command: 
+    - -transport.kafka.brokers=kafka:9092
+    - -transport=kafka
+    - -transport.kafka.topic=flows
+    - -format=pb
+    - -format.protobuf.fixedlen=true
+    networks:
+      network:
+        ipv4_address: 175.24.1.8
+    hostname: goflow2
+
 
 # Consul
   consul_agent:
