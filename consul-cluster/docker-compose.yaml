@@ -158,10 +158,11 @@ services:
     - -format.protobuf.fixedlen=true
     networks:
       network:
-        ipv4_address: 175.24.1.8
+        ipv4_address: 175.24.1.14
     hostname: goflow2
 
   zookeeper:
+    container_name: zookeeper
     image: bitnami/zookeeper:3.6.3
     ports:
       - 2181:2181
@@ -170,9 +171,11 @@ services:
     restart: always
     networks:
       network:
-        ipv4_address: 175.24.1.9
+        ipv4_address: 175.24.1.15
+    hostname: zookeeper
 
   kafka:
+    container_name: kafka
     image: bitnami/kafka:2.8.0
     ports:
       - 9092:9092
@@ -185,7 +188,8 @@ services:
       - zookeeper
     networks:
       network:
-        ipv4_address: 175.24.1.15
+        ipv4_address: 175.24.1.16
+    hostname: kafka
 
 # Consul
   consul_agent:
@@ -195,7 +199,7 @@ services:
     command: ["agent", "-dev"]
     networks:
       network:
-        ipv4_address: 175.24.1.14
+        ipv4_address: 175.24.1.17
 
 
 networks:
