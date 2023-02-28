@@ -8,37 +8,85 @@ admin:
 
 static_resources:
   clusters:
-    - name: tcp_service_cluster
+    - name: envoyonos1
       connect_timeout: 0.25s
-      type: STATIC
-      lb_policy: ROUND_ROBIN
+      type: strict_dns
+      lb_policy: round_robin
       load_assignment:
-        cluster_name: tcp_service_cluster
+        cluster_name: envoyonos1
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: 175.24.1.5
-                      port_value: 6653
-      transport_socket:
-        name: envoy.transport_sockets.raw_buffer
+                      address: envoyonos1
+                      port_value: 19001
+
+    - name: envoyonos2
+      connect_timeout: 0.25s
+      type: strict_dns
+      lb_policy: round_robin
+      load_assignment:
+        cluster_name: envoyonos2
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: envoyonos2
+                      port_value: 19002
+    - name: envoyonos3
+      connect_timeout: 0.25s
+      type: strict_dns
+      lb_policy: round_robin
+      load_assignment:
+        cluster_name: envoyonos2
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: envoyonos3
+                      port_value: 19003
+
+
   listeners:
-    - name: tcp_listener
+    - name: listener_0
       address:
         socket_address:
           address: 0.0.0.0
-          port_value: 6659
+          port_value: 6653
       filter_chains:
         - filters:
             - name: envoy.filters.network.tcp_proxy
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
-                cluster: tcp_service_cluster
-                stat_prefix: tcp_service_cluster
-      tcp_keepalive:
-        keepalive_probes: 3
-        keepalive_time: 30s
+                stat_prefix: app1_tcp
+                cluster: envoyonos1
+    - name: listener_1
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 6654
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.tcp_proxy
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+                stat_prefix: app1_tcp
+                cluster: envoyonos2
+    - name: listener_2
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 6655
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.tcp_proxy
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+                stat_prefix: app1_tcp
+                cluster: envoyonos3
 
 dynamic_resources:
   cds_config:
