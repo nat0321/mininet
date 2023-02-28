@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  consul:
+    image: consul
+    command: agent -dev
+    ports:
+      - "8500:8500"
+
+  onos:
+    image: onosproject/onos
+    environment:
+      - ONOS_APPS=openflow,proxyarp
+    ports:
+      - "8181:8181"
+    depends_on:
+      - consul
+    entrypoint: ["bash", "-c", "sleep 10 && /root/onos/bin/onos-service"]
+
+  mininet:
+    build: .
+    command: mn --topo=linear,2 --controller=remote,ip=onos,port=6653 --service-name=mininet-switch
+    depends_on:
+      - onos
+    environment:
+      - CONSUL_HTTP_ADDR=http://consul:8500
+
