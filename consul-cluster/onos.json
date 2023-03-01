@@ -1,0 +1,9 @@
+{
+    "service": {
+        "name": "onos",
+        "port": 6653,
+        "connect": {
+            "sidecar_service": {}
+        }
+    }
+}

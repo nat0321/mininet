@@ -4,13 +4,14 @@ services:
   mininet-in-a-container:
     privileged: true
     tty: true
-    build:
-      context: .
+#    build:
+#      context: .
     environment:
       - DISPLAY
     volumes:
       - /tmp/.X11-unix:/tmp/.x11-unix
       - /lib/modules:/lib/modules
+      - ./mininet.json:/root/mininet.json
     container_name: mininet
     image: pmanzoni/mininet-in-a-container
     networks:
@@ -68,6 +69,7 @@ services:
       - ONOS_APPS=fwd,openflow
     volumes:
       - ./onos/cluster1.json:/root/onos/config/cluster.json
+      - ./onos.json:/root/onos.json
   onos2:
     container_name: onos2
     image: onosproject/onos:2.5.1
@@ -192,14 +194,20 @@ services:
     hostname: kafka
 
 # Consul
-  consul_agent:
-    image: consul
-    ports:
-      - "8500:8500"
-    command: ["agent", "-dev"]
+  consul-server:
+    image: hashicorp/consul:1.11.1
+    container_name: consul-server
+    restart: always
+    volumes:
+     - ./server.json:/consul/config/server.json:ro
     networks:
       network:
         ipv4_address: 175.24.1.17
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command: "agent"
 
 
 networks:

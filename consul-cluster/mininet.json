@@ -1,0 +1,17 @@
+{
+    "service": {
+        "name": "mininet",
+        "connect": {
+            "sidecar_service": {
+                "proxy": {
+                    "upstreams": [
+                        {
+                            "destination_name": "onos",
+                            "local_bind_port": 12000
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
