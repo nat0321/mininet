@@ -1,0 +1,62 @@
+static_resources:
+  clusters:
+    - name: service1
+      connect_timeout: 0.25s
+      type: strict_dns
+      lb_policy: round_robin
+      hosts:
+        - socket_address:
+            address: service1
+            port_value: 80
+    - name: service2
+      connect_timeout: 0.25s
+      type: strict_dns
+      lb_policy: round_robin
+      hosts:
+        - socket_address:
+            address: service2
+            port_value: 80
+  listeners:
+    - name: listener_0
+      address:
+        socket_address: { address: 0.0.0.0, port_value: 8080 }
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: ingress_http
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: service_host
+                      domains: ["*"]
+                      routes:
+                        - match: { prefix: "/" }
+                          route:
+                            cluster: service1
+                            prefix_rewrite: "/"
+                        - match: { prefix: "/service2" }
+                          route:
+                            cluster: service2
+                            prefix_rewrite: "/service2"
+                http_filters:
+                  - name: envoy.filters.http.router
+
+dynamic_resources:
+  cds_config:
+    api_config_source:
+      api_type: REST
+      cluster_names: [consul]
+      refresh_delay: 5s
+      rate_limit_settings:
+        max_tokens: 10000
+        fill_rate: 10000
+  lds_config:
+    api_config_source:
+      api_type: REST
+      cluster_names: [consul]
+      refresh_delay: 5s
+      rate_limit_settings:
+        max_tokens: 10000
+        fill_rate: 10000

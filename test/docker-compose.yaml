@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  consul:
+    image: consul
+    ports:
+      - "8500:8500"
+    command: "agent -dev"
+
+  envoy:
+    image: envoyproxy/envoy:v1.19.1
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8080:8080"
